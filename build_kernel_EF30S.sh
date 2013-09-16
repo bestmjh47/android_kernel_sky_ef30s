@@ -9,7 +9,8 @@
 # export TARGET_BUILD_SKY_CUST_INCLUDE=$PWD/include/CUST_SKY.h
 # export TARGET_BUILD_SKY_CUST_INCLUDE_DIR=$PWD/include
 #######################################################
-
+export ARCH=arm
+export PATH=~/toolchain/arm-eabi-4.4.3/bin:$PATH
 export PANTECH_ANDROID_FLAGS="-DFEATURE_AARM_RELEASE_MODE -DT_EF30S -include $PWD/include/CUST_PANTECH.h -DFIRM_VER=\\\"S000000\\\" -DSYS_MODEL_NAME=\\\"EF30S\\\" -DPANTECH_MODEL_NAME=\\\"IM-A730S\\\""
 # Define KERNEL Configuration (depending on the SKY MODEL)
 KERNEL_DEFCONFIG=msm7630-perf_ef30s_ws20_defconfig

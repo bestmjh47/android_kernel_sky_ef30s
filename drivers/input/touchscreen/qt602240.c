@@ -4717,6 +4717,8 @@ void  get_message(struct work_struct * p)
                         input_report_abs(qt602240_data->input_dev, ABS_MT_POSITION_Y, fingerInfo[i].y);
                         input_report_abs(qt602240_data->input_dev, ABS_MT_TOUCH_MAJOR, fingerInfo[i].status);//pressure[i]); // 0이면 Release, 아니면 Press 상태(Down or Move)
                         input_report_abs(qt602240_data->input_dev, ABS_MT_WIDTH_MAJOR, fingerInfo[i].id);            // Size 대신 ID 전달
+			input_report_abs(qt602240_data->input_dev, ABS_MT_TRACKING_ID, i); // i = Finger ID 
+			input_report_key(qt602240_data->input_dev, BTN_TOUCH, fingerInfo[i].status != 0);
                         input_mt_sync(qt602240_data->input_dev);
 
                         fingerInfo[i].realx = fingerInfo[i].x;
@@ -4776,6 +4778,8 @@ void  get_message(struct work_struct * p)
                             input_report_abs(qt602240_data->input_dev, ABS_MT_POSITION_Y, fingerInfo[i].realy);
                             input_report_abs(qt602240_data->input_dev, ABS_MT_TOUCH_MAJOR, fingerInfo[i].status);
                             input_report_abs(qt602240_data->input_dev, ABS_MT_WIDTH_MAJOR, fingerInfo[i].id);
+			    input_report_abs(qt602240_data->input_dev, ABS_MT_TRACKING_ID, i); // i = Finger ID 
+			    input_report_key(qt602240_data->input_dev, BTN_TOUCH, fingerInfo[i].status != 0);
                             input_mt_sync(qt602240_data->input_dev);
 
                             valid_area |= 1;
@@ -4808,6 +4812,8 @@ void  get_message(struct work_struct * p)
                         input_report_abs(qt602240_data->input_dev, ABS_MT_POSITION_Y, fingerInfo[i].realy);
                         input_report_abs(qt602240_data->input_dev, ABS_MT_TOUCH_MAJOR, fingerInfo[i].status);
                         input_report_abs(qt602240_data->input_dev, ABS_MT_WIDTH_MAJOR, fingerInfo[i].id);
+			input_report_abs(qt602240_data->input_dev, ABS_MT_TRACKING_ID, i); // i = Finger ID 
+			input_report_key(qt602240_data->input_dev, BTN_TOUCH, fingerInfo[i].status != 0);
                         input_mt_sync(qt602240_data->input_dev);
                          valid_area |= 1;
                      }
@@ -4863,6 +4869,7 @@ void  get_message(struct work_struct * p)
     {
     	input_report_abs(qt602240_data->input_dev, ABS_X, x);
     	input_report_abs(qt602240_data->input_dev, ABS_Y, y);
+
     	if( btn_report == 1)
     		input_report_key(qt602240_data->input_dev, BTN_TOUCH, 1);
 

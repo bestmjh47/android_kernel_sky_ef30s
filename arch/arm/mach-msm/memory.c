@@ -18,10 +18,12 @@
 #include <linux/mm_types.h>
 #include <linux/bootmem.h>
 #include <linux/module.h>
+#include <linux/memory_alloc.h>
 #include <asm/pgtable.h>
 #include <asm/io.h>
 #include <asm/mach/map.h>
 #include <asm/cacheflush.h>
+#include <mach/msm_memtypes.h>
 #include <linux/hardirq.h>
 #if defined(CONFIG_MSM_NPA_REMOTE)
 #include "npa_remote.h"
@@ -118,6 +120,12 @@ void clean_and_invalidate_caches(unsigned long vstart,
 
 	flush_axi_bus_buffer();
 }
+
+unsigned long allocate_contiguous_ebi_nomap(unsigned long size, unsigned long align)
+{
+return _allocate_contiguous_memory_nomap(size, MEMTYPE_EBI0, align, __builtin_return_address(0));
+}
+EXPORT_SYMBOL(allocate_contiguous_ebi_nomap);
 
 void clean_caches(unsigned long vstart,
 	unsigned long length, unsigned long pstart)
